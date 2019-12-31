@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Entities
- build="b2319"
+ build="b12"
  majorVersion="8"
- minorVersion="4"
+ minorVersion="5"
  modelPersistenceProviderPackage="PostgresPersistenceProviderPackage"
- revision="4"
- schemaVersion="1041"
+ revision="0"
+ schemaVersion="1050"
  universal="password">
     <Mashups>
         <Mashup
@@ -17,7 +17,7 @@
          description=""
          documentationContent=""
          homeMashup=""
-         lastModifiedDate="2019-10-04T19:16:36.423+03:00"
+         lastModifiedDate="2019-12-31T08:20:14.698-08:00"
          name="GitBackup.Push.Mashup"
          projectName="GitBackup"
          rows="0.0"
@@ -44,7 +44,9 @@
                  name="GitThing"
                  ordinal="0"></FieldDefinition>
             </ParameterDefinitions>
-            <Things></Things>
+            <Things>
+                <Thing>GIT.Utility.Thing</Thing>
+            </Things>
             <ThingShapes></ThingShapes>
             <ThingTemplates>
                 <ThingTemplate>GitBackupTemplate</ThingTemplate>
@@ -82,6 +84,21 @@
                     "Parameters" : { },
                     "RefreshInterval" : 0,
                     "Target" : "GetGlobalSessionValues"
+                  } ]
+                },
+                "Things_GIT.Utility.Thing" : {
+                  "DataName" : "Things_GIT.Utility.Thing",
+                  "EntityName" : "GIT.Utility.Thing",
+                  "EntityType" : "Things",
+                  "Id" : "03646c90-57f1-45cf-a39f-886574c573bd",
+                  "Services" : [ {
+                    "APIMethod" : "post",
+                    "Characteristic" : "Services",
+                    "Id" : "4b44877a-9a03-40be-b528-9f44fd39f990",
+                    "Name" : "InitUserExtensionProperties",
+                    "Parameters" : { },
+                    "RefreshInterval" : 0,
+                    "Target" : "InitUserExtensionProperties"
                   } ]
                 },
                 "UserExtensions" : {
@@ -197,6 +214,24 @@
                 "EventTriggerId" : "mashup-root",
                 "EventTriggerSection" : "",
                 "Id" : "69f6c3ff-f71e-4ed0-a0ae-1fa71336f9f5"
+              }, {
+                "EventHandlerArea" : "UI",
+                "EventHandlerId" : "navigationfunction-21",
+                "EventHandlerService" : "Navigate",
+                "EventTriggerArea" : "UI",
+                "EventTriggerEvent" : "Clicked",
+                "EventTriggerId" : "button-20",
+                "EventTriggerSection" : "",
+                "Id" : "48bec983-0c8c-4797-9f23-de4fb605e899"
+              }, {
+                "EventHandlerArea" : "Data",
+                "EventHandlerId" : "Things_GIT.Utility.Thing",
+                "EventHandlerService" : "InitUserExtensionProperties",
+                "EventTriggerArea" : "Mashup",
+                "EventTriggerEvent" : "Loaded",
+                "EventTriggerId" : "mashup-root",
+                "EventTriggerSection" : "",
+                "Id" : "c1222a85-fcae-4c34-a1c3-3e5d527006ea"
               } ],
               "RunTimePermissions" : {
                 "permissions" : [ ]
@@ -233,6 +268,7 @@
                   "TitleBarText" : "Gadget Title Here",
                   "Top" : 0,
                   "Type" : "mashup",
+                  "UseMasterTheme" : false,
                   "UseTheme" : false,
                   "UseThemeForHybrids" : false,
                   "Visible" : true,
@@ -244,7 +280,7 @@
                     "Description" : "",
                     "ParameterName" : "GitThing"
                   } ],
-                  "id_index" : 19,
+                  "id_index" : 21,
                   "supportsAutoResize" : true
                 },
                 "Widgets" : [ {
@@ -255,6 +291,7 @@
                     "HideScrollbars" : false,
                     "HorizontalAnchor" : "left",
                     "Id" : "panel-1",
+                    "LastContainer" : false,
                     "Left" : 30,
                     "ResponsiveLayout" : true,
                     "ShowDataLoading" : true,
@@ -271,10 +308,11 @@
                     "Properties" : {
                       "Area" : "UI",
                       "DisplayName" : "panel-5",
-                      "Height" : 262,
+                      "Height" : 261,
                       "HideScrollbars" : false,
                       "HorizontalAnchor" : "left",
                       "Id" : "panel-5",
+                      "LastContainer" : false,
                       "Left" : 0,
                       "ResponsiveLayout" : false,
                       "ShowDataLoading" : true,
@@ -308,6 +346,7 @@
                         "DisplayName" : "lb_PushText",
                         "Height" : 22,
                         "Id" : "label-7",
+                        "LastContainer" : false,
                         "Left" : 143,
                         "ResponsiveLayout" : false,
                         "ShowDataLoading" : true,
@@ -347,6 +386,7 @@
                         "Label" : "",
                         "LabelAlignment" : "left",
                         "LabelStyle" : "DefaultWidgetLabelStyle",
+                        "LastContainer" : false,
                         "Left" : 219,
                         "ReadOnly" : true,
                         "ResponsiveLayout" : false,
@@ -378,6 +418,7 @@
                       "FireOnFirstValue" : false,
                       "Height" : 28,
                       "Id" : "expression-8",
+                      "LastContainer" : false,
                       "Left" : 20,
                       "Output" : false,
                       "OutputBaseType" : "BOOLEAN",
@@ -467,6 +508,7 @@
                       "IconAlignment" : "left",
                       "Id" : "button-15",
                       "Label" : "Push",
+                      "LastContainer" : false,
                       "Left" : 400,
                       "ResponsiveLayout" : false,
                       "RoundedCorners" : false,
@@ -569,6 +611,7 @@
                       "IconAlignment" : "left",
                       "Id" : "button-16",
                       "Label" : "Cancel",
+                      "LastContainer" : false,
                       "Left" : 10,
                       "ResponsiveLayout" : false,
                       "RoundedCorners" : false,
@@ -609,6 +652,7 @@
                       "InnerShadow" : false,
                       "Label" : "",
                       "LabelAlignment" : "left",
+                      "LastContainer" : false,
                       "Left" : 10,
                       "ReadOnly" : false,
                       "ResponsiveLayout" : false,
@@ -640,6 +684,7 @@
                       "FireOnFirstValue" : false,
                       "Height" : 28,
                       "Id" : "expression-19",
+                      "LastContainer" : false,
                       "Left" : 470,
                       "OutputBaseType" : "NUMBER",
                       "ResponsiveLayout" : false,
@@ -654,7 +699,142 @@
                       "helperType" : "expression"
                     },
                     "Widgets" : [ ]
+                  }, {
+                    "Properties" : {
+                      "ActiveStyle" : {
+                        "backgroundColor" : "#d6dadc",
+                        "displayString" : "",
+                        "fontEmphasisBold" : true,
+                        "fontEmphasisItalic" : false,
+                        "fontEmphasisUnderline" : false,
+                        "foregroundColor" : "#24292e",
+                        "image" : "GIT.PushIconHover.ME",
+                        "lineColor" : "#a1a5a8",
+                        "lineStyle" : "solid",
+                        "lineThickness" : 1,
+                        "secondaryBackgroundColor" : "#e8ebee",
+                        "textSize" : "large"
+                      },
+                      "Area" : "UI",
+                      "CancelConfirmationButton" : "button2",
+                      "ConfirmationButton1Label" : "Yes",
+                      "ConfirmationButton2Label" : "No",
+                      "ConfirmationPrompt" : "Do Action?",
+                      "ConfirmationRequired" : false,
+                      "ConfirmationTitle" : "Confirm Action",
+                      "ContextId" : "",
+                      "CustomClass" : "blue-btn",
+                      "DefaultConfirmationButton" : "button1",
+                      "Disabled" : false,
+                      "DisabledStyle" : {
+                        "backgroundColor" : "#cccccc",
+                        "displayString" : "",
+                        "fontEmphasisBold" : true,
+                        "fontEmphasisItalic" : false,
+                        "fontEmphasisUnderline" : false,
+                        "foregroundColor" : "#959595",
+                        "image" : "GIT.PushIcon.ME",
+                        "lineColor" : "#aaaaaa",
+                        "lineStyle" : "solid",
+                        "lineThickness" : 1,
+                        "secondaryBackgroundColor" : "",
+                        "textSize" : "large"
+                      },
+                      "DisplayName" : "btn_Settings",
+                      "FocusStyle" : {
+                        "backgroundColor" : "",
+                        "displayString" : "",
+                        "fontEmphasisBold" : false,
+                        "fontEmphasisItalic" : false,
+                        "fontEmphasisUnderline" : false,
+                        "foregroundColor" : "",
+                        "image" : "",
+                        "lineColor" : "#a1a5a8",
+                        "lineStyle" : "solid",
+                        "lineThickness" : 1,
+                        "secondaryBackgroundColor" : "",
+                        "textSize" : "normal"
+                      },
+                      "Height" : 38,
+                      "HoverStyle" : {
+                        "backgroundColor" : "#edf1f5",
+                        "displayString" : "",
+                        "fontEmphasisBold" : true,
+                        "fontEmphasisItalic" : false,
+                        "fontEmphasisUnderline" : false,
+                        "foregroundColor" : "#24292e",
+                        "image" : "GIT.PushIconHover.ME",
+                        "lineColor" : "#9fa4a9",
+                        "lineStyle" : "solid",
+                        "lineThickness" : 1,
+                        "secondaryBackgroundColor" : "#e6ebf1",
+                        "textSize" : "large"
+                      },
+                      "IconAlignment" : "left",
+                      "Id" : "button-20",
+                      "Label" : "Settings",
+                      "LastContainer" : false,
+                      "Left" : 300,
+                      "ResponsiveLayout" : false,
+                      "RoundedCorners" : false,
+                      "ShowDataLoading" : true,
+                      "SingleClickSelectOnTablets" : true,
+                      "Style" : {
+                        "backgroundColor" : "#f9fbfc",
+                        "displayString" : "",
+                        "fontEmphasisBold" : true,
+                        "fontEmphasisItalic" : false,
+                        "fontEmphasisUnderline" : false,
+                        "foregroundColor" : "#24292e",
+                        "image" : "GIT.PushIcon.ME",
+                        "lineColor" : "#c8cbce",
+                        "lineStyle" : "solid",
+                        "lineThickness" : 1,
+                        "secondaryBackgroundColor" : "#eff3f6",
+                        "textSize" : "large"
+                      },
+                      "TabSequence" : 2,
+                      "ToolTipField" : "",
+                      "ToolTipStyle" : "DefaultTooltipStyle",
+                      "Top" : 214,
+                      "Type" : "button",
+                      "Visible" : true,
+                      "Width" : 90,
+                      "Z-index" : 10,
+                      "__TypeDisplayName" : "Button",
+                      "__supportsTooltip" : true
+                    },
+                    "Widgets" : [ ]
                   } ]
+                }, {
+                  "Properties" : {
+                    "Area" : "UI",
+                    "ClickOutsideToClose" : false,
+                    "CloseButton" : false,
+                    "Description" : "Mashup used to configure Push related settings",
+                    "DisplayName" : "PushSettings",
+                    "Id" : "navigationfunction-21",
+                    "LastContainer" : false,
+                    "Left" : 0,
+                    "MissingMashupMessage" : null,
+                    "PopupHeight" : "240",
+                    "PopupScrollbar" : "auto",
+                    "PopupTitle" : "Push Settings",
+                    "PopupWidth" : "500",
+                    "ReloadOnReplace" : false,
+                    "ShowDataLoading" : true,
+                    "TargetMashup" : "GitBackup.PushSettings.Mashup",
+                    "TargetWindow" : "new",
+                    "TargetWindowType" : "popup",
+                    "Text" : "tw.navigationfunction-ide.properties.text.default-value",
+                    "Top" : 0,
+                    "Type" : "navigationfunction",
+                    "Visible" : true,
+                    "Z-index" : 10,
+                    "__TypeDisplayName" : "navigationfunction",
+                    "_currentParameterDefs" : [ ]
+                  },
+                  "Widgets" : [ ]
                 } ]
               },
               "mashupType" : "mashup"

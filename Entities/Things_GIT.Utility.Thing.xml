@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Entities
- build="b2319"
+ build="b90"
  majorVersion="8"
- minorVersion="4"
+ minorVersion="5"
  modelPersistenceProviderPackage="PostgresPersistenceProviderPackage"
- revision="4"
- schemaVersion="1041"
+ revision="2"
+ schemaVersion="1052"
  universal="password">
     <Things>
         <Thing
@@ -17,7 +17,7 @@
          enabled="true"
          homeMashup=""
          identifier=""
-         lastModifiedDate="2019-10-04T17:11:36.534+03:00"
+         lastModifiedDate="2019-12-30T06:53:13.720-08:00"
          name="GIT.Utility.Thing"
          projectName="GitBackup"
          published="false"
@@ -140,7 +140,7 @@
                     <ServiceDefinition
                      aspect.isAsync="false"
                      category=""
-                     description=""
+                     description="Deletes a GitBackup Thing involves two operations: 1. Deleting the Thing itself and 2. Deleting the FileRepository subfolder that stored that Git repository."
                      isAllowOverride="false"
                      isLocalOnly="false"
                      isOpen="false"
@@ -201,6 +201,23 @@
                      isLocalOnly="false"
                      isOpen="false"
                      isPrivate="false"
+                     name="GetGitUserExtensionsProperties">
+                        <ResultType
+                         aspect.dataShape="GitBackup.UserExtensionProperties.DataShape"
+                         baseType="INFOTABLE"
+                         description=""
+                         name="result"
+                         ordinal="0"></ResultType>
+                        <ParameterDefinitions></ParameterDefinitions>
+                    </ServiceDefinition>
+                    <ServiceDefinition
+                     aspect.isAsync="false"
+                     category=""
+                     description=""
+                     isAllowOverride="false"
+                     isLocalOnly="false"
+                     isOpen="false"
+                     isPrivate="false"
                      name="GetRepoConfiguration">
                         <ResultType
                          aspect.dataShape="GitBackup.Configuration.DataShape"
@@ -241,6 +258,22 @@
                     <ServiceDefinition
                      aspect.isAsync="false"
                      category=""
+                     description="Adds UserExtension Properties needed by the GitBackupExtension"
+                     isAllowOverride="false"
+                     isLocalOnly="false"
+                     isOpen="false"
+                     isPrivate="false"
+                     name="InitUserExtensionProperties">
+                        <ResultType
+                         baseType="NOTHING"
+                         description=""
+                         name="result"
+                         ordinal="0"></ResultType>
+                        <ParameterDefinitions></ParameterDefinitions>
+                    </ServiceDefinition>
+                    <ServiceDefinition
+                     aspect.isAsync="false"
+                     category=""
                      description=""
                      isAllowOverride="false"
                      isLocalOnly="false"
@@ -258,6 +291,38 @@
                              description="delay in seconds"
                              name="delay"
                              ordinal="1"></FieldDefinition>
+                        </ParameterDefinitions>
+                    </ServiceDefinition>
+                    <ServiceDefinition
+                     aspect.isAsync="false"
+                     category=""
+                     description=""
+                     isAllowOverride="false"
+                     isLocalOnly="false"
+                     isOpen="false"
+                     isPrivate="false"
+                     name="SetGitUserExtensionsProperties">
+                        <ResultType
+                         baseType="NOTHING"
+                         description=""
+                         name="result"
+                         ordinal="0"></ResultType>
+                        <ParameterDefinitions>
+                            <FieldDefinition
+                             baseType="STRING"
+                             description=""
+                             name="CommitterEmail"
+                             ordinal="2"></FieldDefinition>
+                            <FieldDefinition
+                             baseType="STRING"
+                             description=""
+                             name="CommitterName"
+                             ordinal="1"></FieldDefinition>
+                            <FieldDefinition
+                             baseType="BOOLEAN"
+                             description=""
+                             name="UseGitCommitUserValues"
+                             ordinal="3"></FieldDefinition>
                         </ParameterDefinitions>
                     </ServiceDefinition>
                     <ServiceDefinition
@@ -702,6 +767,41 @@
                     <ServiceImplementation
                      description=""
                      handlerName="Script"
+                     name="GetGitUserExtensionsProperties">
+                        <ConfigurationTables>
+                            <ConfigurationTable
+                             description=""
+                             isMultiRow="false"
+                             name="Script"
+                             ordinal="0">
+                                <DataShape>
+                                    <FieldDefinitions>
+                                        <FieldDefinition
+                                         baseType="STRING"
+                                         description="code"
+                                         name="code"
+                                         ordinal="0"></FieldDefinition>
+                                    </FieldDefinitions>
+                                </DataShape>
+                                <Rows>
+                                    <Row>
+                                        <code>
+                                        <![CDATA[
+                                        var str_CurrentUser = Resources["CurrentSessionInfo"].GetCurrentUser();
+                                        
+                                        
+                                        // result: INFOTABLE
+                                        var result = Resources["CurrentSessionInfo"].GetCurrentUserExtensionProperties();
+                                        ]]>
+                                        </code>
+                                    </Row>
+                                </Rows>
+                            </ConfigurationTable>
+                        </ConfigurationTables>
+                    </ServiceImplementation>
+                    <ServiceImplementation
+                     description=""
+                     handlerName="Script"
                      name="GetRepoConfiguration">
                         <ConfigurationTables>
                             <ConfigurationTable
@@ -822,6 +922,105 @@
                     <ServiceImplementation
                      description=""
                      handlerName="Script"
+                     name="InitUserExtensionProperties">
+                        <ConfigurationTables>
+                            <ConfigurationTable
+                             description=""
+                             isMultiRow="false"
+                             name="Script"
+                             ordinal="0">
+                                <DataShape>
+                                    <FieldDefinitions>
+                                        <FieldDefinition
+                                         baseType="STRING"
+                                         description="code"
+                                         name="code"
+                                         ordinal="0"></FieldDefinition>
+                                    </FieldDefinitions>
+                                </DataShape>
+                                <Rows>
+                                    <Row>
+                                        <code>
+                                        <![CDATA[
+                                        var str_CurrentUser = Resources["CurrentSessionInfo"].GetCurrentUser();
+                                        
+                                        if (str_CurrentUser!==undefined&&Users[str_CurrentUser]["UseGitCommitUserValues"]===undefined)
+                                        {
+                                             ThingShapes["UserExtensions"].AddPropertyDefinition({
+                                        	defaultValue: false /* STRING */,
+                                        	remoteBindingAspects: undefined /* JSON */,
+                                        	description: "This property is used to decide of the Push will use the GitBackup Thing committer name and email, or the user specific values" /* STRING */,
+                                        	readOnly: false /* BOOLEAN */,
+                                        	type: "BOOLEAN" /* BASETYPENAME */,
+                                        	remote: false /* BOOLEAN */,
+                                        	remotePropertyName: undefined /* STRING */,
+                                        	timeout: undefined /* INTEGER */,
+                                        	pushType: undefined /* STRING */,
+                                        	dataChangeThreshold: undefined /* NUMBER */,
+                                        	logged: false /* BOOLEAN */,
+                                        	name: "UseGitCommitUserValues" /* STRING */,
+                                        	pushThreshold: undefined /* NUMBER */,
+                                        	dataChangeType: undefined /* STRING */,
+                                        	category: undefined /* STRING */,
+                                        	persistent: true /* BOOLEAN */,
+                                        	dataShape: undefined /* DATASHAPENAME */
+                                        });	
+                                             ThingShapes["UserExtensions"].AddPropertyDefinition({
+                                        	defaultValue: false /* STRING */,
+                                        	remoteBindingAspects: undefined /* JSON */,
+                                        	description: "User-specific GitBackup Committer Name. Will be used instead the committer name specified at the Thing level, if UseGitCommitUserValues is set to true." /* STRING */,
+                                        	readOnly: false /* BOOLEAN */,
+                                        	type: "STRING" /* BASETYPENAME */,
+                                        	remote: false /* BOOLEAN */,
+                                        	remotePropertyName: undefined /* STRING */,
+                                        	timeout: undefined /* INTEGER */,
+                                        	pushType: undefined /* STRING */,
+                                        	dataChangeThreshold: undefined /* NUMBER */,
+                                        	logged: false /* BOOLEAN */,
+                                        	name: "GitCommitterName" /* STRING */,
+                                        	pushThreshold: undefined /* NUMBER */,
+                                        	dataChangeType: undefined /* STRING */,
+                                        	category: undefined /* STRING */,
+                                        	persistent: true /* BOOLEAN */,
+                                        	dataShape: undefined /* DATASHAPENAME */
+                                        });
+                                            ThingShapes["UserExtensions"].AddPropertyDefinition({
+                                        	defaultValue: false /* STRING */,
+                                        	remoteBindingAspects: undefined /* JSON */,
+                                        	description: "User-specific GitBackup Committer Email. Will be used instead the committer email specified at the Thing level, if UseGitCommitUserValues is set to true." /* STRING */,
+                                        	readOnly: false /* BOOLEAN */,
+                                        	type: "STRING" /* BASETYPENAME */,
+                                        	remote: false /* BOOLEAN */,
+                                        	remotePropertyName: undefined /* STRING */,
+                                        	timeout: undefined /* INTEGER */,
+                                        	pushType: undefined /* STRING */,
+                                        	dataChangeThreshold: undefined /* NUMBER */,
+                                        	logged: false /* BOOLEAN */,
+                                        	name: "GitCommitterEmail" /* STRING */,
+                                        	pushThreshold: undefined /* NUMBER */,
+                                        	dataChangeType: undefined /* STRING */,
+                                        	category: undefined /* STRING */,
+                                        	persistent: true /* BOOLEAN */,
+                                        	dataShape: undefined /* DATASHAPENAME */
+                                        });
+                                            
+                                        Resources["EntityServices"].RestartDependenciesForThingShape( {
+                                        	name: "UserExtensions" /* THINGSHAPENAME */
+                                        });
+                                        
+                                        
+                                            
+                                        }
+                                        ]]>
+                                        </code>
+                                    </Row>
+                                </Rows>
+                            </ConfigurationTable>
+                        </ConfigurationTables>
+                    </ServiceImplementation>
+                    <ServiceImplementation
+                     description=""
+                     handlerName="Script"
                      name="Pause">
                         <ConfigurationTables>
                             <ConfigurationTable
@@ -843,6 +1042,44 @@
                                         <code>
                                         <![CDATA[
                                         pause(delay * 100);
+                                        ]]>
+                                        </code>
+                                    </Row>
+                                </Rows>
+                            </ConfigurationTable>
+                        </ConfigurationTables>
+                    </ServiceImplementation>
+                    <ServiceImplementation
+                     description=""
+                     handlerName="Script"
+                     name="SetGitUserExtensionsProperties">
+                        <ConfigurationTables>
+                            <ConfigurationTable
+                             description=""
+                             isMultiRow="false"
+                             name="Script"
+                             ordinal="0">
+                                <DataShape>
+                                    <FieldDefinitions>
+                                        <FieldDefinition
+                                         baseType="STRING"
+                                         description="code"
+                                         name="code"
+                                         ordinal="0"></FieldDefinition>
+                                    </FieldDefinitions>
+                                </DataShape>
+                                <Rows>
+                                    <Row>
+                                        <code>
+                                        <![CDATA[
+                                        var str_CurrentUser = Resources["CurrentSessionInfo"].GetCurrentUser();
+                                        
+                                        if (str_CurrentUser!==undefined)
+                                        {
+                                            Users[str_CurrentUser]["UseGitCommitUserValues"]=UseGitCommitUserValues;
+                                            Users[str_CurrentUser]["GitCommitterName"]=CommitterName;
+                                            Users[str_CurrentUser]["GitCommitterEmail"]=CommitterEmail;
+                                        }
                                         ]]>
                                         </code>
                                     </Row>
@@ -946,7 +1183,7 @@
                     https://api.bitbucket.org/2.0
                     ]]>
                     </Value>
-                    <Timestamp>2018-08-24T13:22:56.276+03:00</Timestamp>
+                    <Timestamp>2018-08-24T03:22:56.276-07:00</Timestamp>
                     <Quality>GOOD</Quality>
                 </BitBucketAPIRepositoryURL>
                 <tab-menu>
@@ -986,7 +1223,7 @@
                             </Rows>
                         </infoTable>
                     </Value>
-                    <Timestamp>2019-09-18T18:12:13.450+03:00</Timestamp>
+                    <Timestamp>2019-09-18T08:12:13.450-07:00</Timestamp>
                     <Quality>GOOD</Quality>
                 </tab-menu>
             </ThingProperties>

@@ -23,7 +23,7 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.RefNotFoundException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
-import org.eclipse.jgit.lib.AnyObjectId;
+
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.lib.Ref;
@@ -38,15 +38,16 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.treewalk.EmptyTreeIterator;
-import org.eclipse.jgit.treewalk.TreeWalk;
+
 import org.eclipse.jgit.treewalk.filter.PathFilter;
-import org.eclipse.jgit.util.FS;
+
 import org.eclipse.jgit.util.io.DisabledOutputStream;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 
 import com.thingworx.data.util.InfoTableInstanceFactory;
 import com.thingworx.entities.utils.EntityUtilities;
+import com.thingworx.entities.utils.UserUtilities;
 import com.thingworx.logging.LogUtilities;
 import com.thingworx.metadata.annotations.ThingworxBaseTemplateDefinition;
 import com.thingworx.metadata.annotations.ThingworxConfigurationTableDefinition;
@@ -58,9 +59,10 @@ import com.thingworx.metadata.annotations.ThingworxServiceParameter;
 import com.thingworx.metadata.annotations.ThingworxServiceResult;
 import com.thingworx.relationships.RelationshipTypes.ThingworxRelationshipTypes;
 import com.thingworx.resources.entities.EntityServices;
+import com.thingworx.security.users.User;
 import com.thingworx.things.Thing;
 import com.thingworx.things.repository.FileRepositoryThing;
-import com.thingworx.thingshape.ThingShape;
+
 import com.thingworx.types.InfoTable;
 import com.thingworx.types.collections.ValueCollection;
 import com.thingworx.types.primitives.BooleanPrimitive;
@@ -115,15 +117,17 @@ public class GitBackupTemplate extends Thing {
 
 	// Complete git path will be calculated by concatenating the SCR absolute
 	// path and the relative path
-	private String str_User, str_Password, str_GitRepoURL, str_FileRepository, str_CommitName, str_CommitEmail,
+	private String str_User, str_Password, str_GitRepoURL, str_FileRepository, str_GlobalGitCommitName, str_GlobalGitCommitEmail,
 			str_FileRepoPath, str_CurrentBranchOrCommit,str_ProxyURL;
 	private Integer int_ProxyPort;
 	private boolean bool_isDetachedHead = false,bool_UseProxy;
 
 	private static Logger _logger = LogUtilities.getInstance().getApplicationLogger(GitBackupTemplate.class);
 
-	public GitBackupTemplate() {
-
+	public GitBackupTemplate() throws Exception {
+		//Modifying the UserExtension for Extension V2.3.0
+		((Thing)EntityUtilities.findEntity("GIT.Utility.Thing", ThingworxRelationshipTypes.Thing)).processServiceRequest("InitUserExtensionProperties", null);
+		
 	}
 	
 	@Override
@@ -143,8 +147,8 @@ public class GitBackupTemplate extends Thing {
 		this.str_GitRepoURL = ((String) getConfigurationSetting(Const.str_ConfTableName, Const.str_GitRepoURL));
 		this.str_FileRepository = ((String) getConfigurationSetting(Const.str_ConfTableName, Const.str_FileRepository));
 		this.str_FileRepoPath = ((String) getConfigurationSetting(Const.str_ConfTableName, Const.str_RepoPathName));
-		this.str_CommitName = ((String) getConfigurationSetting(Const.str_ConfTableName, Const.str_CommitName));
-		this.str_CommitEmail = ((String) getConfigurationSetting(Const.str_ConfTableName, Const.str_CommitEmail));
+		this.str_GlobalGitCommitName = ((String) getConfigurationSetting(Const.str_ConfTableName, Const.str_CommitName));
+		this.str_GlobalGitCommitEmail = ((String) getConfigurationSetting(Const.str_ConfTableName, Const.str_CommitEmail));
 		this.str_CurrentBranchOrCommit = ((String) getConfigurationSetting(Const.str_ConfTableName,
 				Const.str_InitialBranch));
 		//this.str_DefaultExportProject = ((String) getConfigurationSetting(Const.str_ConfTableName,Const.str_DefaultProjectToExport));
@@ -193,7 +197,7 @@ public class GitBackupTemplate extends Thing {
 		}
 	}
 
-	@ThingworxServiceDefinition(name = "Push", description = "This will execute a push of all the files for the specific project. Be warned that you might need to edit the global gitignore file to include file types you might want in the commit, like log files. This is usually stored in Windows in the the [user]/Documents/gitignore_global.txt ", category = "", isAllowOverride = false, aspects = {
+	@ThingworxServiceDefinition(name = "Push", description = "This will execute a push of all the files for the specific project. You might need to edit the global gitignore file to include file types you might want in the commit, like log files. This is usually stored in Windows in the the [user]/Documents/gitignore_global.txt ", category = "", isAllowOverride = false, aspects = {
 			"isAsync:false" })
 	@ThingworxServiceResult(name = "Result", description = "", baseType = "STRING", aspects = {})
 	public String Push(
@@ -201,16 +205,36 @@ public class GitBackupTemplate extends Thing {
 			throws Exception, GitAPIException {
 		_logger.trace("Entering Service: Push");
 		try {
+			//1. Retrieve the GitRepository as a Git object that is needed for the next operations
 			Git myGitFolder = GetRepository();
+			//2. Detect if the current ThingWorx user activated the UseGitCommitUserValues checkbox. In this case use for commit the User-level Committer Name and Email instead the global Thing-level ones
+			User us_currentUser = UserUtilities.findUser(UserUtilities.getCurrentUser());
+			boolean isUserExtensionsUsed = ((BooleanPrimitive) (us_currentUser).getPropertyValue("UseGitCommitUserValues")).getValue();
+		
+			//2. Create the commit
+			//2.1. We add all the modified files to the commit
 			myGitFolder.add().addFilepattern(".").call();
 			myGitFolder.add().addFilepattern(".").setUpdate(true).call();
-			myGitFolder.commit().setAll(true).setMessage(Message).call();
+			//2.2 We submit the commit to the repository
+			if (isUserExtensionsUsed==true)
+			{
+				String str_UserCommitterName,str_UserCommitterEmail;
+				str_UserCommitterName = ((StringPrimitive) (us_currentUser.getPropertyValue("GitCommitterName"))).getStringValue();
+				str_UserCommitterEmail = ((StringPrimitive) (us_currentUser.getPropertyValue("GitCommitterEmail"))).getStringValue();
+				myGitFolder.commit().setAll(true).setMessage(Message).setCommitter(str_UserCommitterName, str_UserCommitterEmail).call();
+			}
+			else
+			{
+				myGitFolder.commit().setAll(true).setMessage(Message).call();
+			}
 			
+			//3. We will push the commit to the remote repository
+			//3.1. Create the credentials that are needed to authenticate to the online Git repository provider 
 			CredentialsProvider credentialsProvider = new UsernamePasswordCredentialsProvider(str_User, str_Password);
-
+			//3.2. Push the changes to the online Git repository
 			myGitFolder.push().setRemote("origin").setCredentialsProvider(credentialsProvider).call();
 			
-
+			//4. Various close operations to make sure there is no file lock left active on disk. Needs improvement.
 			myGitFolder.getRepository().close();
 			myGitFolder.close();
 			_logger.trace("Exiting Service: Push");
@@ -342,9 +366,9 @@ public class GitBackupTemplate extends Thing {
 		StoredConfig config = myGitFolder.getRepository().getConfig();
 		config.setString("remote", "origin", "url", str_GitRepoURL);
 		config.setString("remote", "origin", "fetch", "+refs/heads/*:refs/remotes/origin/*");
-		config.setString("user", null, "name", str_CommitName);
+		config.setString("user", null, "name", str_GlobalGitCommitName);
 		config.setString("core", null, "autocrlf", "input");
-		config.setString("user", null, "email", str_CommitEmail);
+		config.setString("user", null, "email", str_GlobalGitCommitEmail);
 		
 		config.save();
 		

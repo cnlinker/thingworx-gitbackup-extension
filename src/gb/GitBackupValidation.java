@@ -9,11 +9,15 @@ import com.thingworx.relationships.RelationshipTypes.ThingworxRelationshipTypes;
 import com.thingworx.resources.Resource;
 import com.thingworx.things.repository.FileRepositoryThing;
 
-import org.eclipse.jgit.api.Git;
+
 import org.slf4j.Logger;
 
 public class GitBackupValidation extends Resource {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9085129963750550673L;
 	private static Logger _logger = LogUtilities.getInstance().getApplicationLogger(GitBackupValidation.class);
 	
 

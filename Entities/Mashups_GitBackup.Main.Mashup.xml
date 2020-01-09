@@ -4,8 +4,8 @@
  majorVersion="8"
  minorVersion="5"
  modelPersistenceProviderPackage="PostgresPersistenceProviderPackage"
- revision="2"
- schemaVersion="1052"
+ revision="1"
+ schemaVersion="1051"
  universal="password">
     <Mashups>
         <Mashup
@@ -17,7 +17,7 @@
          description="Standard version of the GitBackup Main Mashup"
          documentationContent=""
          homeMashup=""
-         lastModifiedDate="2019-12-31T07:18:43.953-08:00"
+         lastModifiedDate="2020-01-08T07:53:44.924-08:00"
          name="GitBackup.Main.Mashup"
          projectName="GitBackup"
          rows="0.0"
@@ -66,30 +66,6 @@
                     "Parameters" : { },
                     "RefreshInterval" : 0,
                     "Target" : "GetFilteredDirectoryListing"
-                  }, {
-                    "APIMethod" : "post",
-                    "Characteristic" : "Services",
-                    "Id" : "e6ae3979-95f4-43ed-89d7-449d8f530d6f",
-                    "Name" : "HasRows",
-                    "Parameters" : { },
-                    "RefreshInterval" : 0,
-                    "Target" : "HasRows"
-                  }, {
-                    "APIMethod" : "post",
-                    "Characteristic" : "Services",
-                    "Id" : "ad1490d2-c416-4979-8a63-8bc06adde071",
-                    "Name" : "GetRepoPathName",
-                    "Parameters" : { },
-                    "RefreshInterval" : 0,
-                    "Target" : "GetRepoPathName"
-                  }, {
-                    "APIMethod" : "post",
-                    "Characteristic" : "Services",
-                    "Id" : "2fcb6386-573c-4efa-8674-0ec304bf5d65",
-                    "Name" : "GetRepositoryName",
-                    "Parameters" : { },
-                    "RefreshInterval" : 0,
-                    "Target" : "GetRepositoryName"
                   }, {
                     "APIMethod" : "post",
                     "Characteristic" : "Services",
@@ -203,27 +179,6 @@
                     "Target" : "ExportExtensionsToRepository"
                   } ]
                 },
-                "Resources_SourceControlFunctions" : {
-                  "DataName" : "Resources_SourceControlFunctions",
-                  "EntityName" : "SourceControlFunctions",
-                  "EntityType" : "Resources",
-                  "Id" : "dffa7df9-d1a1-4652-80aa-89071fc65c6e",
-                  "Services" : [ {
-                    "APIMethod" : "post",
-                    "Characteristic" : "Services",
-                    "Id" : "36059deb-126c-44ec-971d-a85b58c187c0",
-                    "Name" : "ExportSourceControlledEntities",
-                    "Parameters" : {
-                      "includeDependents" : true
-                    },
-                    "Properties" : {
-                      "CustomSuccessMessage" : "Successfully exported entities to the Repository.",
-                      "ShowSuccessMessage" : true
-                    },
-                    "RefreshInterval" : 0,
-                    "Target" : "ExportSourceControlledEntities"
-                  } ]
-                },
                 "Session" : {
                   "DataName" : "Session",
                   "EntityName" : "",
@@ -294,6 +249,14 @@
                     "Parameters" : { },
                     "RefreshInterval" : 0,
                     "Target" : "DeteleGitThing"
+                  }, {
+                    "APIMethod" : "post",
+                    "Characteristic" : "Services",
+                    "Id" : "de50083b-329f-44ca-8b3c-c59e3b186dfb",
+                    "Name" : "InitUserExtensionProperties",
+                    "Parameters" : { },
+                    "RefreshInterval" : 0,
+                    "Target" : "InitUserExtensionProperties"
                   } ]
                 },
                 "UserExtensions" : {
@@ -527,56 +490,6 @@
                 "TargetId" : "ImportExtension",
                 "TargetSection" : "Things_ExtensionImportTargets"
               }, {
-                "Id" : "2868d890-0ba4-4629-a3c3-819761ba0a65",
-                "PropertyMaps" : [ {
-                  "SourceProperty" : "",
-                  "SourcePropertyBaseType" : "INFOTABLE",
-                  "TargetProperty" : "infotable",
-                  "TargetPropertyBaseType" : "INFOTABLE",
-                  "TargetPropertyType" : "Parameter"
-                } ],
-                "SourceArea" : "Data",
-                "SourceDetails" : "AllData",
-                "SourceId" : "GetFileListingWithLinks",
-                "SourceSection" : "DynamicThingTemplates_FileRepository",
-                "TargetArea" : "Data",
-                "TargetId" : "HasRows",
-                "TargetSection" : "DynamicThingShapes_Git.Utility.ThingShape"
-              }, {
-                "Id" : "e31327e3-4e6f-40e5-967f-70eea4ddfad1",
-                "PropertyMaps" : [ {
-                  "SourceProperty" : "result",
-                  "SourcePropertyBaseType" : "BOOLEAN",
-                  "SourcePropertyType" : "Field",
-                  "TargetProperty" : "Disabled",
-                  "TargetPropertyBaseType" : "BOOLEAN",
-                  "TargetPropertyType" : "property"
-                } ],
-                "SourceArea" : "Data",
-                "SourceDetails" : "AllData",
-                "SourceId" : "HasRows",
-                "SourceSection" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "TargetArea" : "UI",
-                "TargetId" : "Button-273",
-                "TargetSection" : ""
-              }, {
-                "Id" : "84763060-6464-4347-96a0-f87f4b771df1",
-                "PropertyMaps" : [ {
-                  "SourceProperty" : "result",
-                  "SourcePropertyBaseType" : "BOOLEAN",
-                  "SourcePropertyType" : "Field",
-                  "TargetProperty" : "Disabled",
-                  "TargetPropertyBaseType" : "BOOLEAN",
-                  "TargetPropertyType" : "property"
-                } ],
-                "SourceArea" : "Data",
-                "SourceDetails" : "AllData",
-                "SourceId" : "HasRows",
-                "SourceSection" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "TargetArea" : "UI",
-                "TargetId" : "button-456",
-                "TargetSection" : ""
-              }, {
                 "Id" : "9b989c86-f377-48c8-8476-be24b03d9843",
                 "PropertyMaps" : [ {
                   "SourceProperty" : "ShortBranchName",
@@ -641,102 +554,6 @@
                 "TargetArea" : "UI",
                 "TargetId" : "dhxlist-476",
                 "TargetSection" : ""
-              }, {
-                "Id" : "150a842f-e7c9-4cdc-81d4-6ce6827c6953",
-                "PropertyMaps" : [ {
-                  "SourceProperty" : "result",
-                  "SourcePropertyBaseType" : "STRING",
-                  "SourcePropertyType" : "Data",
-                  "TargetProperty" : "RepoPath",
-                  "TargetPropertyBaseType" : "STRING"
-                } ],
-                "SourceArea" : "Data",
-                "SourceDetails" : "AllData",
-                "SourceId" : "GetRepoPathName",
-                "SourceSection" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "TargetArea" : "UI",
-                "TargetId" : "expression-322",
-                "TargetSection" : ""
-              }, {
-                "Id" : "0e6b3317-2fc5-4cdc-b36c-fcc57e43e194",
-                "PropertyMaps" : [ {
-                  "SourceProperty" : "result",
-                  "SourcePropertyBaseType" : "STRING",
-                  "SourcePropertyType" : "Data",
-                  "TargetProperty" : "path",
-                  "TargetPropertyBaseType" : "STRING"
-                } ],
-                "SourceArea" : "Data",
-                "SourceDetails" : "AllData",
-                "SourceId" : "GetRepoPathName",
-                "SourceSection" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "TargetArea" : "Data",
-                "TargetId" : "ExportSourceControlledEntities",
-                "TargetSection" : "Resources_SourceControlFunctions"
-              }, {
-                "Id" : "c5103126-e235-4ba7-be40-26b7fed8d573",
-                "PropertyMaps" : [ {
-                  "SourceProperty" : "result",
-                  "SourcePropertyBaseType" : "STRING",
-                  "TargetProperty" : "value",
-                  "TargetPropertyBaseType" : "THINGNAME",
-                  "TargetPropertyType" : "Entity"
-                } ],
-                "SourceArea" : "Data",
-                "SourceDetails" : "AllData",
-                "SourceId" : "GetRepositoryName",
-                "SourceSection" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "TargetArea" : "Data",
-                "TargetId" : "EntityName",
-                "TargetSection" : "DynamicThingTemplates_FileRepository"
-              }, {
-                "Id" : "c8d54048-ce85-4a60-9555-d2cc4853b604",
-                "PropertyMaps" : [ {
-                  "SourceProperty" : "result",
-                  "SourcePropertyBaseType" : "STRING",
-                  "SourcePropertyType" : "Data",
-                  "TargetProperty" : "repositoryName",
-                  "TargetPropertyBaseType" : "THINGNAME"
-                } ],
-                "SourceArea" : "Data",
-                "SourceDetails" : "AllData",
-                "SourceId" : "GetRepositoryName",
-                "SourceSection" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "TargetArea" : "Data",
-                "TargetId" : "ExportExtensionsToRepository",
-                "TargetSection" : "Resources_ExtensionsExport"
-              }, {
-                "Id" : "3c971a84-38b8-4894-883c-67d3c7f9d9f1",
-                "PropertyMaps" : [ {
-                  "SourceProperty" : "result",
-                  "SourcePropertyBaseType" : "STRING",
-                  "SourcePropertyType" : "Data",
-                  "TargetProperty" : "repository",
-                  "TargetPropertyBaseType" : "STRING"
-                } ],
-                "SourceArea" : "Data",
-                "SourceDetails" : "AllData",
-                "SourceId" : "GetRepositoryName",
-                "SourceSection" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "TargetArea" : "Data",
-                "TargetId" : "ImportExtension",
-                "TargetSection" : "Things_ExtensionImportTargets"
-              }, {
-                "Id" : "4afe4674-0105-4721-884d-6586e4a33534",
-                "PropertyMaps" : [ {
-                  "SourceProperty" : "result",
-                  "SourcePropertyBaseType" : "STRING",
-                  "SourcePropertyType" : "Data",
-                  "TargetProperty" : "repositoryName",
-                  "TargetPropertyBaseType" : "THINGNAME"
-                } ],
-                "SourceArea" : "Data",
-                "SourceDetails" : "AllData",
-                "SourceId" : "GetRepositoryName",
-                "SourceSection" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "TargetArea" : "Data",
-                "TargetId" : "ExportSourceControlledEntities",
-                "TargetSection" : "Resources_SourceControlFunctions"
               }, {
                 "Id" : "cb2fa684-6aec-4cb3-ac20-dbe6cb8defb3",
                 "PropertyMaps" : [ {
@@ -1371,6 +1188,120 @@
                 "TargetArea" : "UI",
                 "TargetId" : "DiffViewer-588",
                 "TargetSection" : ""
+              }, {
+                "Id" : "bdd15558-381b-4b05-8cbb-a77173b3f3ac",
+                "PropertyMaps" : [ {
+                  "SourceProperty" : "FileRepoPath",
+                  "SourcePropertyBaseType" : "STRING",
+                  "SourcePropertyType" : "Field",
+                  "TargetProperty" : "RepoPath",
+                  "TargetPropertyBaseType" : "STRING",
+                  "TargetPropertyType" : "property"
+                } ],
+                "SourceArea" : "Data",
+                "SourceDetails" : "AllData",
+                "SourceId" : "GetConfiguration",
+                "SourceSection" : "DynamicThingShapes_Git.Utility.ThingShape",
+                "TargetArea" : "UI",
+                "TargetId" : "expression-322",
+                "TargetSection" : ""
+              }, {
+                "Id" : "407c9704-a270-4023-b733-bcfbb04abd33",
+                "PropertyMaps" : [ {
+                  "SourceProperty" : "FileRepository",
+                  "SourcePropertyBaseType" : "STRING",
+                  "TargetProperty" : "value",
+                  "TargetPropertyBaseType" : "THINGNAME",
+                  "TargetPropertyType" : "Entity"
+                } ],
+                "SourceArea" : "Data",
+                "SourceDetails" : "AllData",
+                "SourceId" : "GetConfiguration",
+                "SourceSection" : "DynamicThingShapes_Git.Utility.ThingShape",
+                "TargetArea" : "Data",
+                "TargetId" : "EntityName",
+                "TargetSection" : "DynamicThingTemplates_FileRepository"
+              }, {
+                "Id" : "22a01ab8-5827-461f-99ab-d0ece0384b95",
+                "PropertyMaps" : [ {
+                  "SourceProperty" : "FileRepository",
+                  "SourcePropertyBaseType" : "STRING",
+                  "TargetProperty" : "repositoryName",
+                  "TargetPropertyBaseType" : "THINGNAME",
+                  "TargetPropertyType" : "Parameter"
+                } ],
+                "SourceArea" : "Data",
+                "SourceDetails" : "AllData",
+                "SourceId" : "GetConfiguration",
+                "SourceSection" : "DynamicThingShapes_Git.Utility.ThingShape",
+                "TargetArea" : "Data",
+                "TargetId" : "ExportExtensionsToRepository",
+                "TargetSection" : "Resources_ExtensionsExport"
+              }, {
+                "Id" : "a4392b86-82f2-4d88-8761-55cd71b281b4",
+                "PropertyMaps" : [ {
+                  "SourceProperty" : "FileRepository",
+                  "SourcePropertyBaseType" : "STRING",
+                  "TargetProperty" : "repository",
+                  "TargetPropertyBaseType" : "STRING",
+                  "TargetPropertyType" : "Parameter"
+                } ],
+                "SourceArea" : "Data",
+                "SourceDetails" : "AllData",
+                "SourceId" : "GetConfiguration",
+                "SourceSection" : "DynamicThingShapes_Git.Utility.ThingShape",
+                "TargetArea" : "Data",
+                "TargetId" : "ImportExtension",
+                "TargetSection" : "Things_ExtensionImportTargets"
+              }, {
+                "Id" : "d59f3f07-9909-4b51-8b06-f41f24da8e26",
+                "PropertyMaps" : [ {
+                  "SourceProperty" : "",
+                  "SourcePropertyBaseType" : "INFOTABLE",
+                  "SourcePropertyType" : "InfoTable",
+                  "TargetProperty" : "Data",
+                  "TargetPropertyBaseType" : "INFOTABLE",
+                  "TargetPropertyType" : "property"
+                } ],
+                "SourceArea" : "Data",
+                "SourceDetails" : "AllData",
+                "SourceId" : "GetFileListingWithLinks",
+                "SourceSection" : "DynamicThingTemplates_FileRepository",
+                "TargetArea" : "UI",
+                "TargetId" : "infotableselector-692",
+                "TargetSection" : ""
+              }, {
+                "Id" : "8aef375a-389b-4216-92da-cd45b542b65b",
+                "PropertyMaps" : [ {
+                  "SourceProperty" : "NoRows",
+                  "SourcePropertyBaseType" : "BOOLEAN",
+                  "SourcePropertyType" : "Property",
+                  "TargetProperty" : "Disabled",
+                  "TargetPropertyBaseType" : "BOOLEAN",
+                  "TargetPropertyType" : "property"
+                } ],
+                "SourceArea" : "UI",
+                "SourceId" : "infotableselector-692",
+                "SourceSection" : "",
+                "TargetArea" : "UI",
+                "TargetId" : "Button-273",
+                "TargetSection" : ""
+              }, {
+                "Id" : "7e627123-7b13-411c-8864-48f2b1249c76",
+                "PropertyMaps" : [ {
+                  "SourceProperty" : "NoRows",
+                  "SourcePropertyBaseType" : "BOOLEAN",
+                  "SourcePropertyType" : "Property",
+                  "TargetProperty" : "Disabled",
+                  "TargetPropertyBaseType" : "BOOLEAN",
+                  "TargetPropertyType" : "property"
+                } ],
+                "SourceArea" : "UI",
+                "SourceId" : "infotableselector-692",
+                "SourceSection" : "",
+                "TargetArea" : "UI",
+                "TargetId" : "button-456",
+                "TargetSection" : ""
               } ],
               "DesignTimePermissions" : {
                 "Create" : [ ],
@@ -1551,15 +1482,6 @@
                 "EventTriggerSection" : "",
                 "Id" : "5c5dec22-f447-4d11-b90f-e975a717b4b4"
               }, {
-                "EventHandlerArea" : "Data",
-                "EventHandlerId" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "EventHandlerService" : "HasRows",
-                "EventTriggerArea" : "Data",
-                "EventTriggerEvent" : "ServiceInvokeCompleted",
-                "EventTriggerId" : "GetFileListingWithLinks",
-                "EventTriggerSection" : "DynamicThingTemplates_FileRepository",
-                "Id" : "0d7335b3-77cd-4d90-a913-9e6a536ef27b"
-              }, {
                 "EventHandlerArea" : "UI",
                 "EventHandlerId" : "navigation-425",
                 "EventHandlerService" : "Navigate",
@@ -1651,24 +1573,6 @@
                 "Id" : "146162bc-43e3-457f-a16e-ac602ad7f6e1"
               }, {
                 "EventHandlerArea" : "Data",
-                "EventHandlerId" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "EventHandlerService" : "GetFilteredDirectoryListing",
-                "EventTriggerArea" : "Data",
-                "EventTriggerEvent" : "ServiceInvokeCompleted",
-                "EventTriggerId" : "ExportSourceControlledEntities",
-                "EventTriggerSection" : "Resources_SourceControlFunctions",
-                "Id" : "f946c062-298d-4796-840d-29b9fbdc35ed"
-              }, {
-                "EventHandlerArea" : "Data",
-                "EventHandlerId" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "EventHandlerService" : "GetFilteredDirectoryListing",
-                "EventTriggerArea" : "Data",
-                "EventTriggerEvent" : "ServiceInvokeCompleted",
-                "EventTriggerId" : "GetRepositoryName",
-                "EventTriggerSection" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "Id" : "a9a4795a-a82b-4e22-b29a-85443a5aa7b9"
-              }, {
-                "EventHandlerArea" : "Data",
                 "EventHandlerId" : "Things_GIT.Utility.Thing",
                 "EventHandlerService" : "GetGitExtensionVersion",
                 "EventTriggerArea" : "Mashup",
@@ -1750,15 +1654,6 @@
                 "Id" : "f32d7b0f-cbc5-4d42-8322-810e78b4da2a"
               }, {
                 "EventHandlerArea" : "Data",
-                "EventHandlerId" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "EventHandlerService" : "GetRepoPathName",
-                "EventTriggerArea" : "Data",
-                "EventTriggerEvent" : "SelectedRowsChanged",
-                "EventTriggerId" : "GetGitHeaderTabs",
-                "EventTriggerSection" : "Things_GIT.Utility.Thing",
-                "Id" : "b3886f80-5cb5-4b09-8211-a5b6b486d00f"
-              }, {
-                "EventHandlerArea" : "Data",
                 "EventHandlerId" : "DynamicThingTemplates_GitBackupTemplate",
                 "EventHandlerService" : "GetCurrentBranch",
                 "EventTriggerArea" : "Data",
@@ -1775,15 +1670,6 @@
                 "EventTriggerId" : "GetGitHeaderTabs",
                 "EventTriggerSection" : "Things_GIT.Utility.Thing",
                 "Id" : "c9629d1d-10e9-4e60-812c-783f46c4d711"
-              }, {
-                "EventHandlerArea" : "Data",
-                "EventHandlerId" : "DynamicThingShapes_Git.Utility.ThingShape",
-                "EventHandlerService" : "GetRepositoryName",
-                "EventTriggerArea" : "Data",
-                "EventTriggerEvent" : "SelectedRowsChanged",
-                "EventTriggerId" : "GetGitHeaderTabs",
-                "EventTriggerSection" : "Things_GIT.Utility.Thing",
-                "Id" : "961c7ce0-23e6-4ba5-bc7d-39ffae623ee4"
               }, {
                 "EventHandlerArea" : "Data",
                 "EventHandlerId" : "DynamicThingShapes_Git.Utility.ThingShape",
@@ -1883,6 +1769,24 @@
                 "EventTriggerId" : "navigation-2",
                 "EventTriggerSection" : "",
                 "Id" : "de76c0ce-9fa2-4cfa-ba92-aa9610972ac4"
+              }, {
+                "EventHandlerArea" : "Data",
+                "EventHandlerId" : "DynamicThingShapes_Git.Utility.ThingShape",
+                "EventHandlerService" : "GetFilteredDirectoryListing",
+                "EventTriggerArea" : "Data",
+                "EventTriggerEvent" : "ServiceInvokeCompleted",
+                "EventTriggerId" : "GetConfiguration",
+                "EventTriggerSection" : "DynamicThingShapes_Git.Utility.ThingShape",
+                "Id" : "0edeb541-abf1-4527-9bd6-725dda6d6838"
+              }, {
+                "EventHandlerArea" : "Data",
+                "EventHandlerId" : "Things_GIT.Utility.Thing",
+                "EventHandlerService" : "InitUserExtensionProperties",
+                "EventTriggerArea" : "Mashup",
+                "EventTriggerEvent" : "Loaded",
+                "EventTriggerId" : "mashup-root",
+                "EventTriggerSection" : "",
+                "Id" : "fac7f624-98e5-4a86-80cd-cf852a0e754c"
               } ],
               "RunTimePermissions" : {
                 "permissions" : [ ]
@@ -1927,7 +1831,7 @@
                   "Width" : 500,
                   "Z-index" : 10,
                   "__TypeDisplayName" : "Mashup",
-                  "id_index" : 691,
+                  "id_index" : 694,
                   "supportsAutoResize" : true
                 },
                 "Widgets" : [ {
@@ -2972,7 +2876,7 @@
                     "Widgets" : [ {
                       "Properties" : {
                         "Area" : "UI",
-                        "CurrentTab" : 2,
+                        "CurrentTab" : 1,
                         "DefaultTabAtRuntime" : 1,
                         "DisplayName" : "tabsv_NoItems",
                         "Height" : 300,
@@ -3426,14 +3330,38 @@
                                   "AnyRowsSelected" : false,
                                   "Area" : "UI",
                                   "DisplayName" : "infotableselector-GitTabs",
+                                  "HasRows" : false,
                                   "Height" : 28,
                                   "Id" : "infotableselector-670",
                                   "LastContainer" : false,
                                   "Left" : 660,
+                                  "NoRows" : false,
                                   "NoRowsSelected" : false,
                                   "ResponsiveLayout" : false,
                                   "ShowDataLoading" : true,
                                   "Top" : 5,
+                                  "Type" : "infotableselector",
+                                  "Visible" : true,
+                                  "Width" : 200,
+                                  "Z-index" : 10,
+                                  "__TypeDisplayName" : "Infotable Selector"
+                                },
+                                "Widgets" : [ ]
+                              }, {
+                                "Properties" : {
+                                  "AnyRowsSelected" : false,
+                                  "Area" : "UI",
+                                  "DisplayName" : "iftbl_HasRows",
+                                  "HasRows" : false,
+                                  "Height" : 28,
+                                  "Id" : "infotableselector-692",
+                                  "LastContainer" : false,
+                                  "Left" : 478.9999694824219,
+                                  "NoRows" : false,
+                                  "NoRowsSelected" : false,
+                                  "ResponsiveLayout" : false,
+                                  "ShowDataLoading" : true,
+                                  "Top" : 6,
                                   "Type" : "infotableselector",
                                   "Visible" : true,
                                   "Width" : 200,
@@ -3477,7 +3405,7 @@
                             "Widgets" : [ {
                               "Properties" : {
                                 "Area" : "UI",
-                                "CurrentTab" : 1,
+                                "CurrentTab" : 2,
                                 "CustomClass" : "tabs-secondary",
                                 "DefaultTabAtRuntime" : 1,
                                 "DisplayName" : "tab_MainPage",

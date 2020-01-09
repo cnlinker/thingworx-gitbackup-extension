@@ -4,11 +4,13 @@
  majorVersion="8"
  minorVersion="5"
  modelPersistenceProviderPackage="PostgresPersistenceProviderPackage"
- revision="2"
- schemaVersion="1052"
+ revision="1"
+ schemaVersion="1051"
  universal="password">
     <Mashups>
         <Mashup
+         aspect.isEditableExtensionObject="true"
+         aspect.isExtension="true"
          aspect.isFlex="true"
          aspect.isResponsive="true"
          aspect.mashupType="mashup"
@@ -16,7 +18,7 @@
          description="Settings mashup for Push parameters"
          documentationContent=""
          homeMashup=""
-         lastModifiedDate="2019-12-30T06:51:01.442-08:00"
+         lastModifiedDate="2020-01-08T07:55:21.405-08:00"
          name="GitBackup.PushSettings.Mashup"
          projectName=""
          rows="0.0"
@@ -387,7 +389,7 @@
                         "Top" : 110,
                         "Type" : "label",
                         "Visible" : true,
-                        "Width" : 190,
+                        "Width" : 215,
                         "Z-index" : 10,
                         "__TypeDisplayName" : "Label",
                         "__supportsTooltip" : true,

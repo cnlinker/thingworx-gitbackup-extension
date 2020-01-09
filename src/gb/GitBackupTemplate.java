@@ -124,10 +124,7 @@ public class GitBackupTemplate extends Thing {
 
 	private static Logger _logger = LogUtilities.getInstance().getApplicationLogger(GitBackupTemplate.class);
 
-	public GitBackupTemplate() throws Exception {
-		//Modifying the UserExtension for Extension V2.3.0
-		((Thing)EntityUtilities.findEntity("GIT.Utility.Thing", ThingworxRelationshipTypes.Thing)).processServiceRequest("InitUserExtensionProperties", null);
-		
+	public GitBackupTemplate() {
 	}
 	
 	@Override

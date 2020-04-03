@@ -12,7 +12,7 @@ Please open issues and feel free to fork it.
 
 Documentation is maintained in a PDF specific for each release.
 
-Download the extension from the Releases section above.
+Download the extension from the Releases section above, link here since that section is not very easy to locate visually: https://github.com/vrosu/thingworx-gitbackup-extension/releases .
 
 This is a ThingWorx Labs project, not covered by PTC Technical Support.
 ThingWorx Labs contains all the internal PTC created content that can be useful for the ThingWorx developer community.
